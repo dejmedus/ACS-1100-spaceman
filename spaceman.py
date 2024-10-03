@@ -1,4 +1,5 @@
 import random
+import os
 
 
 def load_word():
@@ -100,7 +101,17 @@ def spaceman(secret_word):
 
     '''
 
-    # TODO: show the player information about the game according to the project spec
+    incorrect_guesses = 7
+    # show the player information about the game according to the project spec
+    os.system('clear')
+
+    intro_message = f"""
+Welcome to Spaceman! 👽🚀
+The secret word contains: {len(secret_word)} letters
+You get {incorrect_guesses} incorrect guesses.
+-----------------------------------------------------
+    """
+    print(intro_message)
 
     # TODO: Ask the player to guess one letter per round and check that it is only one letter
 
