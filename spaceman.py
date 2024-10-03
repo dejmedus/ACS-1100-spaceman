@@ -71,25 +71,33 @@ def get_guessed_word(secret_word, guessed_letters):
     return guessed_string
 
 
-def is_guess_in_word(guess, secret_word):
+def display_intro_message(chances):
     '''
-    A function to check if the guessed letter is in the secret word
+    A function that .
 
     Args:
-        guess (string): The letter the player guessed this round
-        secret_word (string): The secret word
-
-    Returns:
-        bool: True if the guess is in the secret_word, False otherwise
-
+        chances (number): the amount of chances left to guess the word.
     '''
-    # if the guessed char is in secret word, return true, else false
-    return guess in secret_word
+
+    os.system('clear')
+
+    intro_message = f"""
+Welcome to Spaceman! 👽🚀
+The secret word contains: {len(secret_word)} letters
+You get {chances} incorrect guesses.
+-----------------------------------------------------
+            """
+    print(intro_message)
 
 
-def word_so_far(guessed_letters):
-    current_guess = get_guessed_word(secret_word, guessed_letters)
-    return f"Guessed word so far: {current_guess}"
+def display_guess_message(guess, guessed_letters, unguessed_letters):
+
+    # check if the guessed letter is in the secret or not and give the player feedback
+
+    # show the guessed word so far
+
+    # show the letters that haven't been guessed words so far
+    pass
 
 
 def spaceman(secret_word):
@@ -101,25 +109,28 @@ def spaceman(secret_word):
 
     '''
 
-    incorrect_guesses = 7
+    guessed_letters = []
+    unguessed_letters = "abcdefghijklmnopqrstuvwxyz"
+    chances = 7
+
     # show the player information about the game according to the project spec
-    os.system('clear')
+    display_intro_message(chances)
 
-    intro_message = f"""
-Welcome to Spaceman! 👽🚀
-The secret word contains: {len(secret_word)} letters
-You get {incorrect_guesses} incorrect guesses.
------------------------------------------------------
-    """
-    print(intro_message)
+    # if game hasn't been lost, continue the game loop
+    while (chances > 0):
+        # ask the player to guess one letter per round and check that it is only one letter
+        guess = input("Enter a letter: ").lower().strip()
 
-    # TODO: Ask the player to guess one letter per round and check that it is only one letter
+        display_guess_message(guess, guessed_letters, unguessed_letters)
 
-    # TODO: Check if the guessed letter is in the secret or not and give the player feedback
+        # check if the game has been won or lost
+        is_game_won = is_word_guessed(secret_word, guessed_letters)
 
-    # TODO: show the guessed word so far
+        if (is_game_won):
+            print("You won!")
+            os.system("exit")
 
-    # TODO: check if the game has been won or lost
+    print("You lost")
 
 
 # These function calls that will start the game
