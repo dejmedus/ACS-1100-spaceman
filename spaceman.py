@@ -73,7 +73,7 @@ def get_guessed_word(secret_word, guessed_letters):
 
 def display_intro_message(chances):
     '''
-    A function that .
+    A function that displays the intro message including the amount of letters in the secret word and total incorrect guesses.
 
     Args:
         chances (number): the amount of chances left to guess the word.
