@@ -90,14 +90,28 @@ You get {chances} incorrect guesses.
     print(intro_message)
 
 
-def display_guess_message(guess, guessed_letters, unguessed_letters):
+def display_guess_message(guess, guessed_letters, unguessed_letters, chances):
+    guess_message = ""
 
-    # check if the guessed letter is in the secret or not and give the player feedback
-
+    # check if the guessed letter is in the secret or not
+    if guess in secret_word:
+        guess_message += "Your guess appears in the word! ☄️"
+    else:
+        guess_message += f"""
+Your guess doesn't appears in the word
+You have {chances} incorrect guesses left
+"""
     # show the guessed word so far
+    current_guess = get_guessed_word(secret_word, guessed_letters)
+    guess_message += f"Guessed word so far: {current_guess}"
 
     # show the letters that haven't been guessed words so far
-    pass
+    unguessed_letters = unguessed_letters.replace(guess, "")
+    guess_message += f"""
+These letters haven't been guessed yet: {unguessed_letters}
+----------------------------------------
+"""
+    print(guess_message)
 
 
 def spaceman(secret_word):
@@ -117,16 +131,23 @@ def spaceman(secret_word):
     display_intro_message(chances)
 
     # if game hasn't been lost, continue the game loop
-    while (chances > 0):
+    while chances > 0:
         # ask the player to guess one letter per round and check that it is only one letter
         guess = input("Enter a letter: ").lower().strip()
 
-        display_guess_message(guess, guessed_letters, unguessed_letters)
+        if guess not in guessed_letters:
+            guessed_letters.append(guess)
+
+        if guess not in secret_word:
+            chances = chances - 1
+
+        display_guess_message(guess, guessed_letters,
+                              unguessed_letters, chances)
 
         # check if the game has been won or lost
         is_game_won = is_word_guessed(secret_word, guessed_letters)
 
-        if (is_game_won):
+        if is_game_won:
             print("You won!")
             os.system("exit")
 
