@@ -85,7 +85,7 @@ def display_intro_message(chances):
 Welcome to Spaceman! 👽🚀
 The secret word contains: {len(secret_word)} letters
 You get {chances} incorrect guesses.
------------------------------------------------------
+
             """
     print(intro_message)
 
@@ -95,7 +95,7 @@ def display_guess_message(guess, guessed_letters, unguessed_letters, chances):
 
     # check if the guessed letter is in the secret or not
     if guess in secret_word:
-        guess_message += "Your guess appears in the word! ☄️"
+        guess_message += "Your guess appears in the word!\n"
     else:
         guess_message += f"""
 Your guess doesn't appears in the word
@@ -109,7 +109,7 @@ You have {chances} incorrect guesses left
     unguessed_letters = unguessed_letters.replace(guess, "")
     guess_message += f"""
 These letters haven't been guessed yet: {unguessed_letters}
-----------------------------------------
+
 """
     print(guess_message)
 
@@ -135,8 +135,14 @@ def spaceman(secret_word):
         # ask the player to guess one letter per round and check that it is only one letter
         guess = input("Enter a letter: ").lower().strip()
 
-        if guess not in guessed_letters:
-            guessed_letters.append(guess)
+        if guess in guessed_letters:
+            print(f"""You've already tried the letter {guess}
+These letters haven't been guessed yet: {unguessed_letters}
+
+""")
+            continue
+
+        guessed_letters.append(guess)
 
         if guess not in secret_word:
             chances = chances - 1
