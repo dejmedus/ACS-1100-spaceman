@@ -10,12 +10,15 @@ def load_word():
     Returns:
            string: The secret word to be used in the spaceman guessing game
     '''
+    # get the word file
     f = open('words.txt', 'r')
     words_list = f.readlines()
     f.close()
 
-    # comment this line out if you use a words.txt file with each word on a new line
+    # split the file into a list of words
     words_list = words_list[0].split(' ')
+
+    # choose a random word from the list to return
     secret_word = random.choice(words_list)
     return secret_word
 
@@ -91,6 +94,16 @@ You get {chances} incorrect guesses.
 
 
 def display_guess_message(guess, guessed_letters, unguessed_letters, chances):
+    '''
+    A function that displays feedback to user on game loop
+
+    Args:
+        guess (string): the guessed character
+        guessed_letters (list): list of already guessed characters
+        unguessed_letters (string): characters that have not been guessed by user
+        chances (number): the amount of chances left to guess the word
+    '''
+
     guess_message = ""
 
     # check if the guessed letter is in the secret or not
@@ -135,10 +148,12 @@ def spaceman(secret_word):
         # ask the player to guess one letter per round and check that it is only one letter
         guess = input("Enter a letter: ").lower().strip()
 
+        # if the guess is more than one character, re-prompt the user
         if len(guess) > 1:
             print("Please enter a valid letter")
             continue
 
+        # if the guess has already been tried, re-prompt the user
         if guess in guessed_letters:
             print(f"""You've already tried the letter {guess}
 These letters haven't been guessed yet: {unguessed_letters}
@@ -148,13 +163,14 @@ These letters haven't been guessed yet: {unguessed_letters}
 
         guessed_letters.append(guess)
 
+        # if the guess is incorrect, remove a chance
         if guess not in secret_word:
             chances = chances - 1
 
         display_guess_message(guess, guessed_letters,
                               unguessed_letters, chances)
 
-        # check if the game has been won or lost
+        # check if the game has been won or lost and display to user
         is_game_won = is_word_guessed(secret_word, guessed_letters)
 
         if is_game_won:
