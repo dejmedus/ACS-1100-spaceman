@@ -1,6 +1,8 @@
 import random
 import os
 
+from ascii_art import spaceman_ascii
+
 
 def load_word():
     '''
@@ -108,23 +110,22 @@ def display_guess_message(guess, guessed_letters, unguessed_letters, chances):
 
     # check if the guessed letter is in the secret or not
     if guess in secret_word:
-        guess_message += "Your guess appears in the word!\n"
+        guess_message += f"Your guess {guess} appears in the word!\n"
     else:
         guess_message += f"""
-Your guess doesn't appears in the word
+Your guess {guess} doesn't appears in the word
 You have {chances} incorrect guesses left
 """
     # show the guessed word so far
     current_guess = get_guessed_word(secret_word, guessed_letters)
     guess_message += f"Guessed word so far: {current_guess}"
 
-    # show the letters that haven't been guessed words so far
-    unguessed_letters = unguessed_letters.replace(guess, "")
     guess_message += f"""
 These letters haven't been guessed yet: {unguessed_letters}
-
 """
+    os.system('clear')
     print(guess_message)
+    print(spaceman_ascii[7 - chances])
 
 
 def spaceman(secret_word):
@@ -138,7 +139,7 @@ def spaceman(secret_word):
 
     guessed_letters = []
     unguessed_letters = "abcdefghijklmnopqrstuvwxyz"
-    chances = len(secret_word)
+    chances = 7
 
     # show the player information about the game according to the project spec
     display_intro_message(chances)
@@ -161,6 +162,8 @@ These letters haven't been guessed yet: {unguessed_letters}
 """)
             continue
 
+        # update guessed letters
+        unguessed_letters = unguessed_letters.replace(guess, "")
         guessed_letters.append(guess)
 
         # if the guess is incorrect, remove a chance
@@ -180,6 +183,6 @@ These letters haven't been guessed yet: {unguessed_letters}
     print(f"You lost, the secret word was: {secret_word}")
 
 
-# These function calls that will start the game
+# function calls that will start the game
 secret_word = load_word()
 spaceman(secret_word)
