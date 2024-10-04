@@ -125,7 +125,7 @@ def spaceman(secret_word):
 
     guessed_letters = []
     unguessed_letters = "abcdefghijklmnopqrstuvwxyz"
-    chances = 7
+    chances = len(secret_word)
 
     # show the player information about the game according to the project spec
     display_intro_message(chances)
