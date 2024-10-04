@@ -178,7 +178,7 @@ These letters haven't been guessed yet: {unguessed_letters}
 
         if is_game_won:
             print("You won!")
-            os.system("exit")
+            quit()
 
     print(f"You lost, the secret word was: {secret_word}")
 
