@@ -161,7 +161,7 @@ These letters haven't been guessed yet: {unguessed_letters}
             print("You won!")
             os.system("exit")
 
-    print("You lost")
+    print(f"You lost, the secret word was: {secret_word}")
 
 
 # These function calls that will start the game
