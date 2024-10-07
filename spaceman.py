@@ -149,8 +149,8 @@ def spaceman(secret_word):
         # ask the player to guess one letter per round and check that it is only one letter
         guess = input("Enter a letter: ").lower().strip()
 
-        # if the guess is more than one character, re-prompt the user
-        if len(guess) > 1:
+        # if the guess is empty or more than one character, re-prompt the user
+        if len(guess) > 1 or len(guess) <= 0:
             print("Please enter a valid letter")
             continue
 
